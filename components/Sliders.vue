@@ -48,13 +48,13 @@ const BottomButtons = () => <div class="w-full text-center  absolute bottom-1 z-
 			<h2 class="md:text-7xl sm:text-5xl text-3xl mb-5 ">
 				{{active === 'first' ? 'День Матери' : 'Для Свадьбы'}}
 			</h2>
-			<button class="text-bold text-xs z-[1] uppercase lg:w-40 sm:w-30  absolute btn bg-white text-black hover:bg-orange-200  border-0">
+			<button class="text-bold text-xs z-[1] uppercase lg:w-40 sm:w-30  absolute btn bg-white text-black hover:bg-[#f16e36] hover:text-white  border-0">
 				ПРОСМОТР
 			</button>
 		</div>
 		<MiddleButtons />
 		<BottomButtons />
-		<img ref="slide1ImgRef" class="h-[50vh] sm:h-full transition scale-110  object-cover w-full" 
+		<img ref="slide1ImgRef" class="h-[50vh] sm:h-full transition scale-110 object-cover  w-full" 
 				:class="[active === 'first' ? 'ease-linear duration-[5000ms] delay-500' : 'hidden']" :src="`/s1.jpeg`"  />
 		<img ref="slide2ImgRef" class="h-[50vh] sm:h-full transition scale-110 object-cover w-full" 
 				:class="[active === 'last' ? 'ease-linear duration-[5000ms] delay-500' : 'hidden']" :src="`/s2.jpeg`"  />
