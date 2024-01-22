@@ -3,7 +3,8 @@
     <Header />
     <Sliders />
     <Offers class="mb-20" />
-    <HotDeal />
+    <HotDeal class="mb-[60px]" />
+    <Banners />
   </div>
 </template>
 
