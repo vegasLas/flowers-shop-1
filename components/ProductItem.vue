@@ -10,28 +10,44 @@ defineProps<{img: string, price: string, title: string}>()
 </script>
 
 <template>
-	<div class="group text-center md:w-1/4 sm:">
+	<div class="group text-center md:w-1/4">
 		<div class="relative mb-2">
 			<img :src="`./${img}.jpeg`" class="object-cover h-full w-full" />
-			<ul class="hidden group-hover:block absolute bottom-5 w-full left-1/2 translate-x-[-50%]">
-				<li class="mr-2 tooltip" data-tip="Добавить в корзину">
-					<button class="btn rounded-full">
+			<ul class="hidden
+					md:flex
+					gap-2
+					md:gap-3
+					justify-center
+					opacity-0
+					duration-500
+					transition-all
+					delay-0
+					ease-linear
+					group-hover:opacity-100
+					absolute
+					bottom-5
+					group-hover:bottom-8
+					w-full
+					left-1/2
+					translate-x-[-50%]">
+				<li class="tooltip" data-tip="Добавить в корзину">
+					<button class="hover:text-white border-0 hover:bg-amber-500 btn rounded-full">
 						<Icon name="mi:shopping-cart-add"/>
 					</button>
 				</li>
-				<li class="mr-2 tooltip" data-tip="Быстрый просмотр">	
-					<button class=" btn rounded-full">
+				<li class="tooltip" data-tip="Быстрый просмотр">	
+					<button class="hover:text-white border-0 hover:bg-amber-500  btn rounded-full">
 						<Icon name="pajamas:search"/>
 					</button>
 				</li>
-				<li class="mr-2 tooltip" data-tip="Добавить в желаемое">
-					<button class="btn rounded-full">
+				<li class="tooltip" data-tip="Добавить в желаемое">
+					<button class="hover:text-white border-0 hover:bg-amber-500 btn rounded-full">
 						<Icon name="pajamas:heart"/>
 					</button>
 				</li>
 			</ul>
 		</div>
-		<h4 class="mb-2">
+		<h4  class="m-auto cursor-pointer w-fit hover:text-[#f16e36] mb-2">
 			{{ title }}
 		</h4>
 		<span class="text-amber-500">
