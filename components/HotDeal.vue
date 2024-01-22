@@ -1,4 +1,10 @@
 <script setup lang="tsx">
+// Default theme
+import '@splidejs/splide/css';
+import Splide from '@splidejs/splide';
+
+import { ProductItem } from '#components';
+
 const products = [
     {	img_src: 'hot_deal_1', title: 'Впечатление', price: '1000'},
 	{	img_src: 'hot_deal_2', title: 'Маленькая звезда', price: '1000'},
@@ -6,40 +12,45 @@ const products = [
 	{	img_src: 'hot_deal_4', title: 'Первая любовь', price: '1000'},
 ]
 
-const TabletView = () => 
+const TabletView = () => <section id="splide" class="px-2 sm:px-3 md:px-4 splide" aria-label="Splide Basic HTML Example">
+  <div class="splide__track">
+		<ul class="splide__list gap-2 sm:gap-5 md:gap-6 lg:md:gap-8">
+			{products.map(product => (<li class="splide__slide">
+                <ProductItem 
+                    key={product.title} 
+                    img={product.img_src}
+                    price={product.price}
+                    title={product.title}
+                />
+            </li>))}
+		</ul>
+  </div>
+</section>
+let splide: Splide
+onMounted(() => {
+    splide = new Splide( '#splide', {
+        speed: 1000,
+        autoplay: true,
+        perPage: 2,
+        pagination: false,
+        focus  : 0,
+        omitEnd: true,
+    } );
 
-<div id="default-carousel" class="relative w-full" data-carousel="slide">
-    <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-        { products.map((product) => <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src={`./${product.img_src}.jpeg`} class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-        </div>)}
-    </div>
-    <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-        { products.map((product, index) => <button type="button" class="w-3 h-3 rounded-full" aria-current={index === 0} aria-label="Slide 2" data-carousel-slide-to={index + 1}></button>)}
-    </div>
-    <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <button class="btn w-9 h-9 bg-white">{'<'}</button>
-            <span class="sr-only">Previous</span>
-        </span>
-    </button>
-    <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-            </svg>
-            <span class="sr-only">Next</span>
-        </span>
-    </button>
-</div>
+    splide.mount();
+})
+onUnmounted(() => {
+    splide?.destroy()
+})
 
 </script>
 
 <template>
-	<div class="promotion text-center ">
+	<div class="promotion text-center">
 		<h4 class="promotion__title  uppercase text-2xl relative w-fit m-auto mb-9">Горячее предложение</h4>
 		<p class="mb-10">Не пропустите сегодняшние акционные предложения </p>
-        <div class="flex gap-2 px-4">
+        <TabletView class="md:hidden" />
+        <div class="hidden md:flex  md:gap-5 lg:gap-8 px-4">
             <ProductItem v-for="product in products" 
                 :key="product.title" 
                 :img="product.img_src"
@@ -50,7 +61,37 @@ const TabletView = () =>
     </div>
 </template>
 
-<style scoped>
+<style>
+.promotion .splide__arrow--next {
+    right: -1px;
+}
+.promotion .splide__arrow--prev {
+    left: -1px;
+
+}
+.promotion .splide__arrow--next,
+.promotion .splide__arrow--prev {
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    box-shadow: 1px 2px 6px 4px #35394414;
+    border-radius: unset;
+    fill: black;
+}
+
+.promotion .splide__arrow--next svg,
+.promotion .splide__arrow--prev svg {
+    width: 8px;
+    height: 16px;
+} 
+.promotion .splide__arrow--next:hover,
+.promotion .splide__arrow--prev:hover {
+    background-color: #f16e36;
+ }
+.promotion .splide__arrow--next:hover > svg,
+.promotion .splide__arrow--prev:hover > svg {
+    fill: white;
+}
 .promotion__title::before {
     content: "";
     width: 50%;
