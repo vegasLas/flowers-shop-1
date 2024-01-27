@@ -1,0 +1,32 @@
+/*
+
+*/
+
+
+:root {
+    --c-medium-gray: #868686;
+	--c-silver-gray: #b6b6b6;
+	--c-dark-gray: #666666;
+    --c-blush-sand: 96.95% 0.01 41.88;
+}
+
+[data-theme=dark] {
+    --c-medium-gray: text-inherit;
+	--c-silver-gray: text-inherit;
+	--c-dark-gray: text-inherit;	
+    color-scheme: dark;
+    --c-blush-sand: 37.25% 0.001 17.22
+}
+
+.bg-blush-sand {
+	background-color: var(--fallback-b1,oklch(var(--c-blush-sand)/1));
+}
+.text-dark-gray {
+	color: var(--c-dark-gray)
+}
+.text-silver-gray {
+	color: var(--c-silver-gray)
+}
+.text-medium-gray {
+	color: var(--c-medium-gray)
+}
