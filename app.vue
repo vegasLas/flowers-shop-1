@@ -1,11 +1,12 @@
 <template>
-  <div>
-    <Header />
-    <Sliders />
-    <Offers class="mb-20" />
-    <HotDeal class="mb-[60px]" />
-    <Banners />
-  </div>
+    <AppHeader />
+    <AppSliders />
+    <AppOffers class="mb-20" />
+    <AppHotDeal class="mb-[60px]" />
+    <AppBanners class="mb-[90px]" />
+    <AppBestSeller class="mb-[70px]" />
+    <AppBlogs />
+    <AppFooter />
 </template>
 
 
