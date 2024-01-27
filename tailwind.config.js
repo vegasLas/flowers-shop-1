@@ -1,13 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	plugins: [require("daisyui")],
+	darkMode: 'class',
 	daisyui: {
 		themes: ['light', 'business'],
 		darkTheme: "business",
 	},
-	
 	theme: {
 		screens: {
+			'tn': '300px',
+			
+			'ph': '576px',
+
 			'sm': '640px',
 			// => @media (min-width: 640px) { ... }
 
@@ -22,7 +26,6 @@ module.exports = {
 
 			'2xl': '1536px',
 			// => @media (min-width: 1536px) { ... }
-			tn: '300px'
 		},
 	}
  }
