@@ -1,15 +1,14 @@
 <script setup lang="tsx">
-// Default theme
 import '@splidejs/splide/css';
 import Splide from '@splidejs/splide';
 
 import { ProductItem } from '#components';
 
 const products = [
-    {	img_src: 'hot_deal_1', title: 'Впечатление', price: '1000'},
-	{	img_src: 'hot_deal_2', title: 'Маленькая звезда', price: '1000'},
-	{	img_src: 'hot_deal_3', title: 'Гортензия', price: '1000'},
-	{	img_src: 'hot_deal_4', title: 'Первая любовь', price: '1000'},
+    {	img_src: 'hot_deal_1', title: 'Впечатление', price: 1000},
+	{	img_src: 'hot_deal_2', title: 'Маленькая звезда', price: 1000},
+	{	img_src: 'hot_deal_3', title: 'Гортензия', price: 1000},
+	{	img_src: 'hot_deal_4', title: 'Первая любовь', price: 1000},
 ]
 
 const TabletView = () => <section id="splide" class="px-2 sm:px-3 md:px-4 splide" aria-label="Splide Basic HTML Example">
@@ -17,6 +16,7 @@ const TabletView = () => <section id="splide" class="px-2 sm:px-3 md:px-4 splide
 		<ul class="splide__list gap-2 sm:gap-5 md:gap-6 lg:md:gap-8">
 			{products.map(product => (<li class="splide__slide">
                 <ProductItem 
+                    class="md:w-1/4"
                     key={product.title} 
                     img={product.img_src}
                     price={product.price}
@@ -31,6 +31,7 @@ onMounted(() => {
     splide = new Splide( '#splide', {
         speed: 1000,
         autoplay: true,
+        // theme: 'loop'
         perPage: 2,
         pagination: false,
         focus  : 0,
