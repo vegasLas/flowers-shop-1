@@ -1,29 +1,30 @@
 <script setup lang="tsx">
 import { Icon } from '#components';
 const data = [
-	{	img_src: 'hot_deal_5', title: 'Люблю тебя', price: '1000'},
-	{	img_src: 'hot_deal_6', title: 'Любовная история', price: '1000'},
-	{	img_src: 'hot_deal_7', title: 'Любовная песня', price: '1000'},
-	{	img_src: 'hot_deal_8', title: 'Маленькая вещь', price: '1000'}
+	{	img_src: 'hot_deal_5', title: 'Люблю тебя', price: 1000},
+	{	img_src: 'hot_deal_6', title: 'Любовная история', price: 1000},
+	{	img_src: 'hot_deal_7', title: 'Любовная песня', price: 1000},
+	{	img_src: 'hot_deal_8', title: 'Маленькая вещь', price: 1000}
 ]
-defineProps<{img: string, price: string, title: string}>()
+defineProps<{img: string, price: number, title: string}>()
 </script>
 
 <template>
-	<div class="group text-center md:w-1/4">
+	<div class="group text-center">
 		<div class="relative mb-2">
 			<img :src="`./${img}.jpeg`" class="object-cover h-full w-full" />
-			<ul class="hidden
+			<ul class="
+					hidden
 					md:flex
 					gap-2
 					md:gap-3
 					justify-center
 					opacity-0
+					group-hover:opacity-100
 					duration-500
 					transition-all
 					delay-0
 					ease-linear
-					group-hover:opacity-100
 					absolute
 					bottom-5
 					group-hover:bottom-8
