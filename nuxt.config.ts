@@ -8,7 +8,14 @@ export default defineNuxtConfig({
       } 
     }],
     '@nuxtjs/tailwindcss',
-    'nuxt-icon'
+    'nuxt-icon',
+    // '@pinia/nuxt',
+    // {
+    //   autoImports: ['defineStore', 'acceptHMRUpdate'],
+    // },
   ],
-  css: ['~/assets/css/main.css']
+  css: ['~/assets/css/main.css'],
+  imports: {
+    dirs: ['stores'],
+  },
 })
