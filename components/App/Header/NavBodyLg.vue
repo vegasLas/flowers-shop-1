@@ -1,0 +1,47 @@
+<script setup lang="ts">
+ interface Props {
+	sections: {section: string, link: string, subsections: {title: string, link: string}[]}[]
+ }
+ 
+//  defineProps()
+</script>
+
+<template>
+	<ul tabindex="0" class="flex items-center gap-5 justify-center">	
+				<li><a class="relative nav_link cursor-pointer">Домой</a></li>
+				<li>
+					<div class="relative group">
+						<div tabindex="0" role="button" class="relative nav_link cursor-pointer ">Продукция</div>
+						<ul style="left: -200px" class="
+							flex
+							z-[2]
+							gap-5
+							p-8
+							absolute
+							!top-10
+							group-hover:!top-[100%]
+							opacity-0
+							group-hover:opacity-100
+							invisible
+							group-hover:visible
+							duration-300
+							ease-linear
+							transition-all
+							w-[max-content]
+							rounded-box
+							bg-[var(--fallback-b1,oklch(var(--b1)/1))]
+							">
+								<li v-for="{link, section, subsections} in sections" class='pt-[15px]'>
+									<NuxtLink class="pb-[10px] transition-all delay-0 duration-300 ease-linear cursor-pointer nav__section relative text-bold text-xl hover:text-[#fe7250]" :to="`/${link}`">{{section}}</NuxtLink>
+									<ul class="mt-[14px] transition-color delay-0 duration-300 ease-linear">
+										<li v-for="{link, title} in subsections" class="py-1">
+											<NuxtLink class="transition-color delay-0 duration-300 ease-linear cursor-pointer hover:text-[#fe7250]" :to="link">{{title}}</NuxtLink>
+										</li>
+									</ul>	
+								</li>	
+						</ul>
+					</div>
+				</li>
+				<li><a class="relative nav_link cursor-pointer">Рекомендация</a></li>
+			</ul>
+</template>

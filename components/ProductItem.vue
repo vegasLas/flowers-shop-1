@@ -6,7 +6,7 @@ const data = [
 	{	img_src: 'hot_deal_7', title: 'Любовная песня', price: 1000},
 	{	img_src: 'hot_deal_8', title: 'Маленькая вещь', price: 1000}
 ]
-defineProps<{img: string, price: number, title: string}>()
+const props = defineProps<{img: string, price: number, title: string}>()
 </script>
 
 <template>

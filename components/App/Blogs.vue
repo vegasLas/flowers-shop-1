@@ -22,7 +22,7 @@ const Blog = (props: {link: string, img_src: string, title: string, date: string
 				rounded-full
 				" src={`./${props.img_src}.jpeg`} />
 		</NuxtLink>
-		<h4 class="ease duration-300 transition-hover text-bold text-2xl mb-[11px] hover:text-[#f16e36] w-fit m-auto cursor-pointer">
+		<h4 class="duration-300 text-bold text-2xl mb-[11px] hover:text-[#f16e36] w-fit m-auto cursor-pointer">
 			{props.title}
 		</h4>
 		<span class="block pb-[18px] mb-[18px] blog__date text-silver-gray">
