@@ -1,12 +1,14 @@
-/*
-
-*/
-
+* {
+    font-family: 'Jost';
+  }
 
 :root {
     --c-medium-gray: #868686;
 	--c-silver-gray: #b6b6b6;
+	--c-silver-gray: #b6b6b6;
 	--c-dark-gray: #666666;
+	--c-moonstone-gray: #666666;
+	--c-slate-gray: #969696;
     --c-blush-sand: 96.95% 0.01 41.88;
 }
 
@@ -29,4 +31,14 @@
 }
 .text-medium-gray {
 	color: var(--c-medium-gray)
+}
+.text-slate-gray {
+	color: var(--c-slate-gray)
+}
+.text-moonstone-gray {
+	color: var(--c-moonstone-gray)
+}
+body.global-search-is-active {
+	transition: margin-top .3s ease;
+	margin-top: 522px;
 }

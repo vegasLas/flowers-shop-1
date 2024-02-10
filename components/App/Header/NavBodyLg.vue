@@ -1,17 +1,17 @@
 <script setup lang="ts">
  interface Props {
-	sections: {section: string, link: string, subsections: {title: string, link: string}[]}[]
+	goods: {section: string, link: string, subsections: {title: string, link: string}[]}[]
  }
  
-//  defineProps()
+ defineProps<Props>()
 </script>
 
 <template>
 	<ul tabindex="0" class="flex items-center gap-5 justify-center">	
-				<li><a class="relative nav_link cursor-pointer">Домой</a></li>
+				<li><NuxtLink to="/" class="relative nav_link cursor-pointer">Домой</NuxtLink></li>
 				<li>
 					<div class="relative group">
-						<div tabindex="0" role="button" class="relative nav_link cursor-pointer ">Продукция</div>
+						<NuxtLink to="/products" tabindex="0" role="button" class="relative nav_link cursor-pointer ">Продукция</NuxtLink>
 						<ul style="left: -200px" class="
 							flex
 							z-[2]
@@ -31,7 +31,7 @@
 							rounded-box
 							bg-[var(--fallback-b1,oklch(var(--b1)/1))]
 							">
-								<li v-for="{link, section, subsections} in sections" class='pt-[15px]'>
+								<li v-for="{link, section, subsections} in goods" class='pt-[15px]'>
 									<NuxtLink class="pb-[10px] transition-all delay-0 duration-300 ease-linear cursor-pointer nav__section relative text-bold text-xl hover:text-[#fe7250]" :to="`/${link}`">{{section}}</NuxtLink>
 									<ul class="mt-[14px] transition-color delay-0 duration-300 ease-linear">
 										<li v-for="{link, title} in subsections" class="py-1">

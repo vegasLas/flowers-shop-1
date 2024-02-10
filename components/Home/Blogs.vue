@@ -86,7 +86,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<section class="pb-[50px] md:pb-[75px] lg:pb-[100px] bg-blush-sand pt-[50px] blogs text-center flex flex-col  ">
+	<section class="md:pb-[75px] lg:pb-[100px] bg-blush-sand pt-[50px] blogs text-center flex flex-col  ">
 		<h3  class="relative blogs__title uppercase pb-[10px] mb-[23px] text-2xl text-bold w-fit m-auto">
 			Наш блог
 		</h3>

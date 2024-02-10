@@ -7,8 +7,12 @@ export default defineNuxtConfig({
         'Jost': true,
       } 
     }],
+    '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
     'nuxt-icon'
   ],
+  pinia: {
+    storesDirs: ['./stores/**']
+  },
   css: ['~/assets/css/main.css']
 })

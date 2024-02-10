@@ -11,5 +11,4 @@ export const saveTheme =  (theme: 'dark' | 'light') => {
 		document.documentElement.setAttribute("data-theme", "dark");
 	prevTheme = curTheme
 	localStorage.setItem('theme', curTheme)
-	console.log(curTheme)
 }
