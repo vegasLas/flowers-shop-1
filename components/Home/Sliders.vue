@@ -11,21 +11,9 @@ function switchSlide (val: 'first' | 'last') {
 	slideBodyRef.value.classList.add('animate-bounce')
 	clearTimeout(bounceTimeoutId)
 	activeSlide.value = val
-	setTimeout(() => {
-			if (val === 'first') {
-				slide1ImgRef.value.classList.add('transform-none')
-				slide2ImgRef.value.classList.remove('transform-none')
-			}
-			else {
-				slide2ImgRef.value.classList.add('transform-none')
-				slide1ImgRef.value.classList.remove('transform-none')
-			}
-	}, 0)
 	bounceTimeoutId = setTimeout(() => slideBodyRef.value.classList.remove('animate-bounce'), 1500)
 } 
-onMounted(() => {
-	switchSlide('first')
-})
+
 const MiddleButtons = () => 
 		<>
 			<button onClick={() => switchSlide(activeSlide.value === 'first' ? 'last' : 'first')} class="hover:text-yellow-200 top-1/2 absolute z-[1]">
@@ -43,6 +31,10 @@ const BottomButtons = () =>
 			<button onClick={() => switchSlide('last')} class={['border-[0.1px] border-slate-500 rounded-full w-3 h-3', activeSlide.value === 'last' ? 'bg-slate-500' : 'bg-opacity-100']}>
 			</button>
 		</div>
+
+onMounted(() => {
+	switchSlide('first')
+})
 </script>
 <template>
 	<div class="relative h-1/2 overflow-hidden" :class="[activeSlide === 'first' ? 'text-white ' : 'text-black']">
@@ -56,13 +48,35 @@ const BottomButtons = () =>
 		</div>
 		<MiddleButtons />
 		<BottomButtons />
-		<img ref="slide1ImgRef" class="h-[50vh] sm:h-full transition scale-110 object-cover  w-full" 
-				:class="[activeSlide === 'first' ? 'ease-linear duration-[5000ms] delay-500' : 'hidden']" :src="`/s1.jpeg`"  />
-		<img ref="slide2ImgRef" class="h-[50vh] sm:h-full transition scale-110 object-cover w-full" 
-				:class="[activeSlide === 'last' ? 'ease-linear duration-[5000ms] delay-500' : 'hidden']" :src="`/s2.jpeg`"  />
+		<img class="h-[50vh] sm:h-full object-cover  w-full" 
+				:class="[activeSlide === 'first' ? 'slide-active' : 'hidden']" :src="`/s1.jpeg`"  />
+		<img class="h-[50vh] sm:h-full object-cover w-full" 
+				:class="[activeSlide === 'last' ? 'slide-active' : 'hidden']" :src="`/s2.jpeg`"  />
 	</div>
 </template>
 
 <style scoped>
+.slide-active {
+	--tw-scale-x: 1.1;
+	--tw-scale-y: 1.1;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+	-webkit-animation: decrease 5s ease;
+	animation: decrease 5s ease;
+	animation-delay: 300ms;
+	-webkit-animation-fill-mode: forwards; /* Chrome 16+, Safari 4+ */
+	-moz-animation-fill-mode: forwards;    /* FF 5+ */
+	-o-animation-fill-mode: forwards;      /* Not implemented yet */
+	-ms-animation-fill-mode: forwards;     /* IE 10+ */
+	animation-fill-mode: forwards;         /* When the spec is finished */
+} 
 
+@keyframes decrease {
+  from {
+		
+	}
+
+  to {
+		transform: none
+	}
+}
 </style>

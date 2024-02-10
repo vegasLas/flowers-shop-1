@@ -1,9 +1,8 @@
 <script setup lang="ts">
  interface Props {
 	isBurgerActive: boolean,
-	sections: {section: string, link: string, subsections: {title: string, link: string}[]}[]
+	goods: {section: string, link: string, subsections: {title: string, link: string}[]}[]
  }
- const activeSection = ref<string>()
  const searchQuery = defineModel({type: String})
  defineProps<Props>()
 
@@ -36,13 +35,13 @@
 					class="form-input border-none border-gray-900 py-3 px-4 appearance-none w-full block pl-14 text-[var(--fallback-bc,oklch(var(--bc)/1))] focus:outline-none" />
 			</label>
 			<div tabindex="0" class="">
-				<div v-for="{section, subsections} in sections"  style="">
-					<div tabindex="0" class="collapse collapse-arrow !border-b-transparent border border-base-300 !rounded-none">
+				<div v-for="{section, subsections} in goods"  style="">
+					<div tabindex="0" class="collapse collapse-arrow !border-b-transparent border border-base-300 !rounded-none" :class="[searchQuery ? 'collapse-open' : '']">
 						<input type="checkbox" /> 
 						<div class="collapse-title font-medium ">
 							{{section}}
 						</div>
-						<div class="collapse-content duration-300 overflow-auto"> 
+						<div class="collapse-content duration-300 overflow-auto px-0"> 
 							<div v-for="{link, title} in subsections" class="btn btn-sm !border-none btn-outline bg-transparent  !rounded-none w-full">
 								<NuxtLink :to="link">{{title}}</NuxtLink>
 							</div>	

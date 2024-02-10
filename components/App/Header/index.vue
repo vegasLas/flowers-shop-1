@@ -1,62 +1,20 @@
 <script lang="tsx" setup>
 import { NuxtLink, Icon } from '#components';
+const goods = useGoods()
+const globalSearch = useGlobalSearch()
+const burger = useBurger()
 
-const sections = [
-	{section: 'Букеты', link: 'bouquet', subsections: [
-							{title: "С гвоздиками", link: ''},
-							{title: "С герберами", link: ''},
-							{title: "С лилиями", link: ''},
-							{title: "С орхидеями", link: ''},
-							{title: "С розами", link: ''},
-							{title: "С ромашками", link: ''},
-							{title: "С тюльпанами", link: ''},
-							{title: "С экзотическими цветами", link: ''}
-						]},
-	{section: 'Цветы', link: 'flowers', subsections: [
-							{title: "Гвоздики", link: ''},
-							{title: "Герберы", link: ''},
-							{title: "Лизиантусы", link: ''},
-							{title: "Лилии", link: ''},
-							{title: "Орхидеи", link: ''},
-							{title: "Подсолнухи", link: ''},
-							{title: "Розы", link: ''},
-							{title: "Ромашки", link: ''},
-							{title: "Тюльпаны", link: ''},
-							{title: "Хризантемы", link: ''},
-							{title: "Экзотические цветы", link: ''}
-						]},
-	{section: 'Композиции', link: 'сomposition', subsections: [
-							{title: "Корзины с цветами", link: ''},
-							{title: "Цветы в коробках", link: ''},
-							{title: "Шляпные коробки", link: ''},
-							{title: "Корзины с цветами", link: ''},
-							{title: "Цветы в коробках", link: ''},
-							{title: "Шляпные коробки", link: ''},
-							{title: "Корзины с цветами", link: ''},
-							{title: "Цветы в коробках", link: ''},
-							{title: "Шляпные коробки", link: ''},
-							{title: "Корзины с цветами", link: ''},
-						]}
-]
-const sectionsFiltered = computed(() => sections.reduce((prev, item) => {
-	let tempSubsections = item.subsections.filter(({title}) => title.includes(searchQuery.value))
-	if (tempSubsections.length) prev.push({...item, subsections: tempSubsections})
-	return prev
-}, [] as typeof sections))
-const isBurgerActive = ref(false)
-const searchQuery = ref('')
-watch(isBurgerActive, () => {
-	if (isBurgerActive.value) 
-		document.body.classList.add('overflow-hidden')
-	else 
-		document.body.classList.remove('overflow-hidden')
-})
 const isFixed = ref(false);
-
 const handleScroll = () => {
-  isFixed.value = window.scrollY > 50;
+  isFixed.value = window.scrollY > 64;
 };
-
+watch(isFixed, () => {
+	if (isFixed.value) {
+		document.body.classList?.add("pt-16");
+	}
+	else 
+		document.body.classList?.remove("pt-16");
+})
 onMounted(() => {
 	handleScroll()
   	window.addEventListener('scroll', handleScroll);
@@ -67,25 +25,28 @@ onUnmounted(() => {
 });
 </script>
 <template>
-	<header :class="[isFixed ? 'fixed top-0 w-full z-10' : '', 'duration-300 top-0 bg-[var(--fallback-b1,oklch(var(--b1)/1))]']">
+	<header :class="[isFixed ? 'fixed top-0 w-full z-10 scroll-fix' : '', 'duration-300 top-0 bg-[var(--fallback-b1,oklch(var(--b1)/1))]']">
 		<div class="lg:container lg:m-auto z-[4]">
 			<nav class="nav navbar">
 				<div class="navbar-start">
-					<div tabindex="0" @click="isBurgerActive = !isBurgerActive" role="button" class="cursor-pointer p-1 md:hidden">
-						<Icon size="25px" :name="isBurgerActive === false ? 'gridicons:align-left' : 'mi:close'" />
+					<div tabindex="0" @click="burger.isActive = !burger.isActive" role="button" class="cursor-pointer p-1 md:hidden">
+						<Icon size="25px" :name="burger.isActive === false ? 'gridicons:align-left' : 'mi:close'" />
 					</div>
 					<NuxtLink to="/" class="hidden md:block text-xl">LasFlores</NuxtLink>
 				</div>
 				<div class="navbar-center">
 					<NuxtLink to="/" class="block md:hidden text-xl">LasFlores</NuxtLink>
-					<AppHeaderNavBodyLg :sections="sections" class="hidden md:flex" />
+					<AppHeaderNavBodyLg :goods="goods.data" class="hidden md:flex" />
 				</div>	
 				<div class="navbar-end">
+					<button v-show="!burger.isActive" class="mr-4" @click="globalSearch.isActive = !globalSearch.isActive">
+						<Icon class="w-7 h-7" name="formkit:search" />
+					</button>
 					<Theme />
 				</div>
 			</nav>
 		</div>
-		<AppHeaderNavBodySm v-model="searchQuery" :sections="sectionsFiltered" :isBurgerActive="isBurgerActive" class="md:hidden" />
+		<AppHeaderNavBodySm v-model="goods.searchQuery" :goods="goods.filtered" :isBurgerActive="burger.isActive" class="md:hidden" />
 	</header>
 </template>
 
@@ -113,5 +74,18 @@ onUnmounted(() => {
     left: 0;
     transition: width .4s linear 0s;
     width: 50%;
+}
+.scroll-fix {
+	-webkit-animation: mations 1s ease;
+	animation: mations 1s ease
+} 
+@keyframes mations {
+  from {
+    transform: translateY(-100%)
+  }
+
+  to {
+    transform: translateY(0)
+  }
 }
 </style>

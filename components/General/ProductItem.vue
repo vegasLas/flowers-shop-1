@@ -1,16 +1,10 @@
 <script setup lang="tsx">
 import { Icon } from '#components';
-const data = [
-	{	img_src: 'hot_deal_5', title: 'Люблю тебя', price: 1000},
-	{	img_src: 'hot_deal_6', title: 'Любовная история', price: 1000},
-	{	img_src: 'hot_deal_7', title: 'Любовная песня', price: 1000},
-	{	img_src: 'hot_deal_8', title: 'Маленькая вещь', price: 1000}
-]
-const props = defineProps<{img: string, price: number, title: string}>()
+defineProps<{img: string, price: number, title: string, link: string}>()
 </script>
 
 <template>
-	<div class="group text-center">
+	<NuxtLink class="inline-block group text-center" :to="link">
 		<div class="relative mb-2">
 			<img :src="`./${img}.jpeg`" class="object-cover h-full w-full" />
 			<ul class="
@@ -26,8 +20,12 @@ const props = defineProps<{img: string, price: number, title: string}>()
 					delay-0
 					ease-linear
 					absolute
-					bottom-5
-					group-hover:bottom-8
+					bottom-2
+					md:bottom-3
+					lg:bottom-5
+					group-hover:bottom-4
+					md:group-hover:bottom-5
+					lg:group-hover:bottom-8
 					w-full
 					left-1/2
 					translate-x-[-50%]">
@@ -54,7 +52,7 @@ const props = defineProps<{img: string, price: number, title: string}>()
 		<span class="text-amber-500">
 			{{ price }}
 		</span>
-	</div>
+	</NuxtLink>
 </template>
 
 <style>
