@@ -42,3 +42,37 @@ body.global-search-is-active {
 	transition: margin-top .3s ease;
 	margin-top: 522px;
 }
+
+.smooth-aim {
+	border: 1px solid #e5e7eb;
+	transition: background-color, border;
+	transition-duration: 300ms;
+	transition-timing-function: ease;
+
+}
+.smooth-aim:hover {
+	background-color: #f16e36;
+	border-color: #f16e36;
+	color: white;
+}
+
+.smooth-aim.active {
+	color: white;
+	background-color: #f16e36;
+	border-color: #f16e36;
+}
+
+.bg-overlay {
+	transition: all .3s ease;
+	background-color: #000000a8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+.general-transition {
+	transition: all .3s ease;
+}

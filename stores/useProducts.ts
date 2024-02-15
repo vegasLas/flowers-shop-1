@@ -2,10 +2,10 @@ export const useProducts = defineStore('', () => {
 	const activeColumn = ref<2 | 3 | 4 | 5>(4)
 	const columns = ref([2, 3, 4, 5])
 	const proportions = {
-		2: '50%',
-		3: '33.3%',
-		4: '25%',
-		5: '20%',
+		2: 'test',
+		3: '33',
+		4: '25',
+		5: '20',
 	}
 	const sorts = ref(['Выбрать', 'Лучшие продажи', 'А-Я', 'Цена, макс. - мин.', 'Цена, мин. - макс.',])
 	const selectedSort = ref('Выбрать')
