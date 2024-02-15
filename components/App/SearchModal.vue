@@ -31,7 +31,7 @@ const globalSearch = useGlobalSearch()
 						class="h-[44px] border-b-2 form-input  py-3 px-4 appearance-none w-full block text-[var(--fallback-bc,oklch(var(--bc)/1))] focus:outline-none" />
 					<Icon class="pointer-events-none w-5 h-5 sm:w-8 sm:h-8 absolute top-1/2 transform -translate-y-1/2 right-3" name="formkit:search" />
 				</label>
-				<div class="h-[320px] sm:h-[260px] overflow-auto m-auto  mt-5 flex flex-wrap">
+				<div class="h-[320px] sm:h-[260px] overflow-auto m-auto  mt-5 grid grid-cols-5">
 					<span v-if="globalSearch.searchQuery.length < 2">Введите минимум два символа.</span>
 					<!-- <span v-show=""><Icon name="svg-spinners:bars-fade" />Загрузка</span> -->
 					<span v-else-if="globalSearch.goods.length === 0">Ничего не найдено.</span>

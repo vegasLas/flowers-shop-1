@@ -24,18 +24,16 @@
 							group-hover:opacity-100
 							invisible
 							group-hover:visible
-							duration-300
-							ease-linear
-							transition-all
+							general-transition
 							w-[max-content]
 							rounded-box
 							bg-[var(--fallback-b1,oklch(var(--b1)/1))]
 							">
 								<li v-for="{link, section, subsections} in goods" class='pt-[15px]'>
-									<NuxtLink class="pb-[10px] transition-all delay-0 duration-300 ease-linear cursor-pointer nav__section relative text-bold text-xl hover:text-[#fe7250]" :to="`/${link}`">{{section}}</NuxtLink>
-									<ul class="mt-[14px] transition-color delay-0 duration-300 ease-linear">
+									<NuxtLink class="pb-[10px] general-transition cursor-pointer nav__section relative text-bold text-xl hover:text-[#fe7250]" :to="`/${link}`">{{section}}</NuxtLink>
+									<ul class="mt-[14px] general-transition ease-linear">
 										<li v-for="{link, title} in subsections" class="py-1">
-											<NuxtLink class="transition-color delay-0 duration-300 ease-linear cursor-pointer hover:text-[#fe7250]" :to="link">{{title}}</NuxtLink>
+											<NuxtLink class="general-transition ease-linear cursor-pointer hover:text-[#fe7250]" :to="link">{{title}}</NuxtLink>
 										</li>
 									</ul>	
 								</li>	

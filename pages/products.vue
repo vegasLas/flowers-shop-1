@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import LeftModal from '~/components/General/LeftModal.vue';
+
 const products = useProducts()
+const isFilterActive = ref(false)
 </script>
 
 <template>
@@ -7,7 +10,7 @@ const products = useProducts()
 		<div  class="text-center pt-[30px] text-white bg-center bg-cover bg-[url('./products.jpeg')]">
 			<h2 class="text-center font-medium leading-[1.2] text-2xl sm:text-[40px]">
 				Продукты
-			</h2>``
+			</h2>
 			<div class="pt-[6px] pb-[30px]">
 				<NuxtLink class="font-medium text-[16px] mb-2" to="/">
 					Домой
@@ -18,18 +21,16 @@ const products = useProducts()
 				</strong>
 			</div>
 		</div>
-		<div class="container pt-[50px] m-a m-auto">
+		<div class="sm:container px-[10px] pt-[50px] m-a m-auto">
 			<div class="flex flex-wrap justify-between mb-[30px]">
-				<div class="">
-					<button class="border-[2px] border-solid py-[7px] items-center inline-flex font-medium px-5">
-						<Icon name="iconoir:filter" />
-						<p>
-							Фильтры
-						</p>
-					</button>
-				</div>
+				<button @click="isFilterActive = !isFilterActive" class="smooth-aim border-[2px] border-solid py-[7px] items-center inline-flex font-medium px-5">
+					<Icon name="iconoir:filter" />
+					<p>
+						Фильтры
+					</p>
+				</button>
 				<div class="flex">
-					<div class="products__column-change column-change group mr-5">
+					<!-- <div class="products__column-change column-change group mr-5">
 						<div class="relative">
 							<div class="
 								transition-[width]
@@ -47,16 +48,17 @@ const products = useProducts()
 							">
 								<button
 								 	v-for="column in products.columns"
+									@click="products.activeColumn = column"
 									:class="[`w-9
 										h-9
 										rounded-full
 										border-[1px]
-										hover:bg-[#f16e36] hover:border-[unset] hover:text-white
+										hover:bg-[#f16e36] hover:border-transparent hover:text-white
 										mr-[5px]
 										leading-4
 										transition-all
 										ease-in-out
-										duration-400`, products.activeColumn === column ? 'bg-[#f16e36] border-[unset] text-white' : '']">
+										duration-400`, products.activeColumn === column ? 'bg-[#f16e36] border-transparent text-white' : '']">
 								 {{ column }}
 								</button>
 							</div>
@@ -64,13 +66,13 @@ const products = useProducts()
 								<Icon name="zondicons:view-tile" />
 							</span>
 						</div>
-					</div>
+					</div> -->
 					<div class="dropdown">
 						<div  tabindex="0" role="button" 
 						class="min-w-[150px] font-medium m-1 pb-[1px] text-slate-gray border-b-[1px] border-[var(--c-moonstone-gray)]">{{products.selectedSort}}</div>
 						<ul tabindex="0" class="z-[1] menu p-2 shadow bg-base-100 w-52 dropdown-content">
 							<li v-for="sort in products.sorts">
-								<button @click="products.selectedSort = sort" 
+								<button @click="products.selectedSort = sort"
 									:class="['hover:text-[#f16e36] !bg-[unset]', products.selectedSort === sort ? 'font-bold !text-[#f16e36]' : '']">
 									{{ sort }}
 								</button>
@@ -79,19 +81,33 @@ const products = useProducts()
 					</div>
 				</div>
 			</div>
-			<div class="flex flex-wrap justify-between mb-6">
-				<GeneralProductItem v-for="good in products.goods[products.selectedPage - 1]"  
-					class="w-[48%] mb-[54px]  md:w-[30%] lg:w-[23%]"
-					:class="[products.activeColumn ? `flex-[0_0_${products.proportions[products.activeColumn]}]` : ''] "
-					:img="good.img_src"
-					:link="good.link"
-					:title="good.title" 
-					:price="good.price"/>
+			<div class="flex">
+				<ProductsFilter 
+				:class="[`
+					transition-[flex,max-width,padding]
+					duration-300
+					ease-[ease]
+					flex-[0_0_0]
+					max-w-0
+					flex-col
+					hidden lg:flex`,  
+					isFilterActive ? 'flex-[0_0_25%] max-w-[25%] pr-[30px]' : 'invisible']" />
+				<LeftModal :isFilterActive="isFilterActive" @close-modal="isFilterActive = false">
+					<ProductsFilter class="flex flex-col" />
+				</LeftModal>
+				<div :class="['flex flex-wrap justify-between mb-6 general-transition max-w-[100%] flex-[0_0_100%]', isFilterActive ? 'lg:max-w-[75%] lg:flex-[0_0_75%]' : '']">
+					<GeneralProductItem v-for="good in products.goods[products.selectedPage - 1]"  
+						:class="['w-[48%] mb-[54px]  md:w-[30%] lg:w-[23%]', products.activeColumn ? `flex-${products.proportions[products.activeColumn]}` : ''] "
+						:img="good.img_src"
+						:link="good.link"
+						:title="good.title" 
+						:price="good.price"/>
+				</div>
 			</div>
 			<div class="join text-center block">
 				<button v-for="page in products.goods.length" @click="products.selectedPage = page" :class="[
-					'w-[42px] h-[42px] join-item text-medium-gray mr-[9px] btn rounded-none bg-[unset] hover:bg-[#f16e36] hover:text-white border-[#e3e3e3]', 
-					page === products.selectedPage ? '!bg-[#f16e36] !text-white border-none' : '']">
+					'w-[42px] h-[42px] join-item text-medium-gray mr-[9px] btn rounded-none bg-[unset] smooth-aim', 
+					page === products.selectedPage ? 'active' : '']">
 					{{ page }}
 				</button>
 			</div>

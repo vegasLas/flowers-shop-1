@@ -46,7 +46,7 @@ defineProps<{img: string, price: number, title: string, link: string}>()
 				</li>
 			</ul>
 		</div>
-		<h4  class="m-auto cursor-pointer w-fit hover:text-[#f16e36] mb-2">
+		<h4  class="general-transition m-auto cursor-pointer w-fit hover:text-[#f16e36] mb-2">
 			{{ title }}
 		</h4>
 		<span class="text-amber-500">
