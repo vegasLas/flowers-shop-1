@@ -1,6 +1,6 @@
 <script setup lang="ts">
  interface Props {
-	goods: {section: string, link: string, subsections: {title: string, link: string}[]}[]
+	goods: {section: string, link: string, items: {title: string, link: string}[]}[]
  }
  
  defineProps<Props>()
@@ -29,10 +29,10 @@
 							rounded-box
 							bg-[var(--fallback-b1,oklch(var(--b1)/1))]
 							">
-								<li v-for="{link, section, subsections} in goods" class='pt-[15px]'>
+								<li v-for="{link, section, items} in goods" class='pt-[15px]'>
 									<NuxtLink class="pb-[10px] general-transition cursor-pointer nav__section relative text-bold text-xl hover:text-[#fe7250]" :to="`/${link}`">{{section}}</NuxtLink>
 									<ul class="mt-[14px] general-transition ease-linear">
-										<li v-for="{link, title} in subsections" class="py-1">
+										<li v-for="{link, title} in items" class="py-1">
 											<NuxtLink class="general-transition ease-linear cursor-pointer hover:text-[#fe7250]" :to="link">{{title}}</NuxtLink>
 										</li>
 									</ul>	

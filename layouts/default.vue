@@ -3,4 +3,5 @@
 	<AppHeader />
 	<slot />
 	<AppFooter />
+	<GeneralQuickViewCard />
   </template>

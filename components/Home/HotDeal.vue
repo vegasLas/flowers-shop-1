@@ -4,24 +4,15 @@ import Splide from '@splidejs/splide';
 
 import { GeneralProductItem } from '#components';
 
-const products = [
-    {	img_src: 'hot_deal_1', title: 'Впечатление', link: '', price: 1000},
-	{	img_src: 'hot_deal_2', title: 'Маленькая звезда', link: '', price: 1000},
-	{	img_src: 'hot_deal_3', title: 'Гортензия', link: '', price: 1000},
-	{	img_src: 'hot_deal_4', title: 'Первая любовь', link: '', price: 1000},
-]
-
+const goods = useGoods()
 const TabletView = () => <section id="splide" class="px-2 sm:px-3 md:px-4 splide" aria-label="Splide Basic HTML Example">
   <div class="splide__track">
 		<ul class="splide__list gap-2 sm:gap-5 md:gap-6 lg:md:gap-8">
-			{products.map(product => (<li class="splide__slide">
+			{goods.items.slice(0, 4).map(good => (<li class="splide__slide">
                 <GeneralProductItem 
                     class="md:w-1/4"
-                    key={product.title} 
-                    link={product.link} 
-                    img={product.img_src}
-                    price={product.price}
-                    title={product.title}
+                    key={good.title} 
+                    good={good}
                 />
             </li>))}
 		</ul>
@@ -53,12 +44,9 @@ onUnmounted(() => {
 		<p class="mb-10">Не пропустите сегодняшние акционные предложения </p>
         <TabletView class="md:hidden" />
         <div class="hidden md:flex  md:gap-5 lg:gap-8 px-4">
-            <GeneralProductItem v-for="product in products" 
-                :key="product.title" 
-                :img="product.img_src"
-                :price="product.price"
-                :link="product.link"
-                :title="product.title"
+            <GeneralProductItem v-for="good in goods.items.slice(0, 4)" 
+                :key="good.title" 
+                :good="good"
                  />
         </div>
     </div>

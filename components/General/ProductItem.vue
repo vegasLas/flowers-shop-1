@@ -1,12 +1,16 @@
 <script setup lang="tsx">
 import { Icon } from '#components';
-defineProps<{img: string, price: number, title: string, link: string}>()
+import { Good } from '~/types/Good';
+defineProps<{
+	good: Good
+}>()
+const quickViewCard = useQuickViewCard()
 </script>
 
 <template>
-	<NuxtLink class="inline-block group text-center" :to="link">
+	<NuxtLink class="inline-block group text-center" :to="good.link">
 		<div class="relative mb-2">
-			<img :src="`./${img}.jpeg`" class="object-cover h-full w-full" />
+			<img :src="`./${good.img_src[0]}.jpeg`" class="object-cover h-full w-full" />
 			<ul class="
 					hidden
 					md:flex
@@ -15,7 +19,7 @@ defineProps<{img: string, price: number, title: string, link: string}>()
 					justify-center
 					opacity-0
 					group-hover:opacity-100
-					duration-500
+					duration-300
 					transition-all
 					delay-0
 					ease-linear
@@ -35,7 +39,7 @@ defineProps<{img: string, price: number, title: string, link: string}>()
 					</button>
 				</li>
 				<li class="tooltip" data-tip="Быстрый просмотр">	
-					<button class="hover:text-white border-0 hover:bg-amber-500  btn rounded-full">
+					<button @click="quickViewCard.good = good" class="hover:text-white border-0 hover:bg-amber-500  btn rounded-full">
 						<Icon name="pajamas:search"/>
 					</button>
 				</li>
@@ -47,10 +51,10 @@ defineProps<{img: string, price: number, title: string, link: string}>()
 			</ul>
 		</div>
 		<h4  class="general-transition m-auto cursor-pointer w-fit hover:text-[#f16e36] mb-2">
-			{{ title }}
+			{{ good.title }}
 		</h4>
 		<span class="text-amber-500">
-			{{ price }}
+			{{ good.price }}
 		</span>
 	</NuxtLink>
 </template>

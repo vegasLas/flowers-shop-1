@@ -1,20 +1,20 @@
 <script setup lang="ts">
 const data = [
-	{section: 'Помощь & информация', subsections: [
+	{section: 'Помощь & информация', items: [
 		{title: 'пример', link: ''},
 		{title: 'пример', link: ''},
 		{title: 'пример', link: ''},
 		{title: 'пример', link: ''},
 		{title: 'пример', link: ''},
 	]},
-	{section: 'О нас', subsections: [
+	{section: 'О нас', items: [
 		{title: 'пример', link: ''},
 		{title: 'пример', link: ''},
 		{title: 'пример', link: ''},
 		{title: 'пример', link: ''},
 		{title: 'пример', link: ''},
 	]},
-	{section: 'Категории', subsections: [
+	{section: 'Категории', items: [
 		{title: 'пример', link: ''},
 		{title: 'пример', link: ''},
 		{title: 'пример', link: ''},

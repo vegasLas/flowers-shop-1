@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import LeftModal from '~/components/General/LeftModal.vue';
-
 const products = useProducts()
 const isFilterActive = ref(false)
 </script>
@@ -92,16 +90,13 @@ const isFilterActive = ref(false)
 					flex-col
 					hidden lg:flex`,  
 					isFilterActive ? 'flex-[0_0_25%] max-w-[25%] pr-[30px]' : 'invisible']" />
-				<LeftModal :isFilterActive="isFilterActive" @close-modal="isFilterActive = false">
+				<GeneralLeftModal :isFilterActive="isFilterActive" @close-modal="isFilterActive = false">
 					<ProductsFilter class="flex flex-col" />
-				</LeftModal>
-				<div :class="['flex flex-wrap justify-between mb-6 general-transition max-w-[100%] flex-[0_0_100%]', isFilterActive ? 'lg:max-w-[75%] lg:flex-[0_0_75%]' : '']">
+				</GeneralLeftModal>
+				<div :class="['flex flex-wrap justify-evenly mb-6 general-transition max-w-[100%] flex-[0_0_100%]', isFilterActive ? 'lg:max-w-[75%] lg:flex-[0_0_75%]' : '']">
 					<GeneralProductItem v-for="good in products.goods[products.selectedPage - 1]"  
 						:class="['w-[48%] mb-[54px]  md:w-[30%] lg:w-[23%]', products.activeColumn ? `flex-${products.proportions[products.activeColumn]}` : ''] "
-						:img="good.img_src"
-						:link="good.link"
-						:title="good.title" 
-						:price="good.price"/>
+						:good="good"/>
 				</div>
 			</div>
 			<div class="join text-center block">

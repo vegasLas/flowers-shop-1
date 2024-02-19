@@ -1,9 +1,10 @@
 <script setup lang="tsx">
-	const data = [
-		{title: 'Пример', img_src: 'banner1'},
-		{title: 'Пример', img_src: 'banner2'},
-		{title: 'Пример', img_src: 'banner3'}
-	]
+	// const data = [
+	// 	{title: 'Пример', img_src: 'banner1'},
+	// 	{title: 'Пример', img_src: 'banner2'},
+	// 	{title: 'Пример', img_src: 'banner3'}
+	// ]
+	const goods = useGoods()
 	const Banner = (props: {img_src: string; title: string}) => (
 		<div class='sm:w-1/3 overflow-hidden group relative'>
 			<img 
@@ -48,7 +49,7 @@
 			Наши Возможности
 		</h3>
 		<div class="sm:flex">
-			<Banner v-for="item in data" :key="item.img_src" :img_src="item.img_src" :title="item.title" />
+			<Banner v-for="item in goods.items.slice(0, 3)" :key="item.img_src[0]" :img_src="item.img_src[0]" :title="item.title" />
 		</div>
 	</section>
 </template>
