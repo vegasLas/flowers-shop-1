@@ -36,11 +36,14 @@ onUnmounted(() => {
 				</div>
 				<div class="navbar-center">
 					<NuxtLink to="/" class="block md:hidden text-xl">LasFlores</NuxtLink>
-					<AppHeaderNavBodyLg :goods="goods.data" class="hidden md:flex" />
+					<AppHeaderNavBodyLg :goods="goods.sections" class="hidden md:flex" />
 				</div>	
 				<div class="navbar-end">
 					<button v-show="!burger.isActive" class="mr-4" @click="globalSearch.isActive = !globalSearch.isActive">
 						<Icon class="w-7 h-7" name="formkit:search" />
+					</button>
+					<button v-show="!burger.isActive" class="mr-4" @click="globalSearch.isActive = !globalSearch.isActive">
+						<Icon class="w-7 h-7" name="basil:clipboard-outline" />
 					</button>
 					<Theme />
 				</div>

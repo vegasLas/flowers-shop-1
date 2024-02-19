@@ -1,4 +1,4 @@
-export const useProducts = defineStore('', () => {
+export const useProducts = defineStore('products', () => {
 	const activeColumn = ref<2 | 3 | 4 | 5>(4)
 	const columns = ref([2, 3, 4, 5])
 	const proportions = {
@@ -18,7 +18,7 @@ export const useProducts = defineStore('', () => {
 		sorts,
 		selectedSort,
 		selectedPage,
-		goods: computed(() => goods.data.flatMap((section) => section.subsections).reduce<typeof goods.data[number]['subsections'][number][][]>((prev, good, index) => {
+		goods: computed(() => goods.sections.flatMap((section) => section.items).reduce<typeof goods.sections[number]['items'][number][][]>((prev, good, index) => {
 			if (index % 12 === 0) {
 				prev.push([good])
 			}

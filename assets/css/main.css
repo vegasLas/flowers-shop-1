@@ -38,8 +38,11 @@
 .text-moonstone-gray {
 	color: var(--c-moonstone-gray)
 }
-body.global-search-is-active {
+body {
 	transition: margin-top .3s ease;
+
+}
+body.global-search-is-active {
 	margin-top: 522px;
 }
 

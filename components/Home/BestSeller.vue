@@ -1,14 +1,5 @@
 <script setup lang="ts">
-const data = [
-	{title: 'пример', img_src: 'hot_deal_1', link: '', price: 1000},
-	{title: 'пример', img_src: 'hot_deal_2', link: '', price: 1000},
-	{title: 'пример', img_src: 'hot_deal_3', link: '', price: 1000},
-	{title: 'пример', img_src: 'hot_deal_4', link: '', price: 1000},
-	{title: 'пример', img_src: 'hot_deal_5', link: '', price: 1000},
-	{title: 'пример', img_src: 'hot_deal_6', link: '', price: 1000},
-	{title: 'пример', img_src: 'hot_deal_7', link: '', price: 1000},
-	{title: 'пример', img_src: 'hot_deal_8', link: '', price: 1000}
-]
+const goods = useGoods()
 </script>
 
 <template>
@@ -18,7 +9,7 @@ const data = [
 		</h3>
 		<p class="text-dark-gray mb-[38px]">Бестселлеры недели</p>
 		<div class="flex gap-[15px] md:gap-[15px] lg:gap-[30px] flex-wrap px-[15px] justify-center">
-			<GeneralProductItem v-for="item in data" :key="item.img_src" :img="item.img_src" :title="item.title" :link="item.link" :price="item.price" 
+			<GeneralProductItem v-for="item in goods.items.slice(0, 8)" :key="item.img_src" :good="item" 
 			class="w-[48%]  md:w-[30%] lg:w-[23%]"
 			 />
 		</div>
