@@ -1,18 +1,25 @@
 <script lang="ts" setup >
-const quickViewCard = useQuickViewCard()
+
+const {
+	selectedPreview,
+	quantity,
+	good,
+} = storeToRefs(useQuickViewCard())
+const cart = useCart()
+const curCount = ref((good.value?.title && cart.hasGood(good.value.title)) ? cart.getGood(good.value.title).count : 1)
 </script>
 
 <template>
-	<GeneralCentralModal @close-modal="quickViewCard.good = null" v-if="quickViewCard.good">
+	<GeneralCentralModal v-if="good" @close-modal="good = null">
 		<div @click.stop class="product-quickview min-w-[490px] max-w-[800px] bg-[var(--fallback-b1,oklch(var(--b1)/1))] flex p-5">
 			<div class="px-[15px] max-w-50% flex-[0_0_50%]">
 				<NuxtLink to="" class="inline-block">
-					<img :src="`./${quickViewCard.selectedPreview ? quickViewCard.selectedPreview : quickViewCard.good?.img_src[0]}.jpeg`" />
+					<img :src="`./${selectedPreview ? selectedPreview : good?.img_src[0]}.jpeg`" />
 				</NuxtLink>
 				<div class="carousel rounded-box space-x-2">
-					<div v-for="img in quickViewCard.good?.img_src" class="carousel-item">
+					<div v-for="img in good?.img_src" class="carousel-item">
 						<img 
-							@click="quickViewCard.selectedPreview = img"
+							@click="selectedPreview = img"
 							class="cursor-pointer w-[160px] h-[160px]"
 							:src="`./${img}.jpeg`"
 						/>
@@ -21,32 +28,34 @@ const quickViewCard = useQuickViewCard()
 			</div>
 			<div class="px-[15px] max-w-50% flex-[0_0_50%]">
 				<h2 class="text-[22px] leading-8  font-medium mb-2">
-					{{ quickViewCard.good?.title }}
+					{{ good?.title }}
 				</h2>
 				<div class="product-quickview__price">
-					{{ quickViewCard.good?.price }}
+					{{ good?.price }}
 				</div>
 				<p class="mb-[25px]">
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque assumenda quo dignissimos aliquam sit voluptate, perferendis cupiditate incidunt quis tempora, ab officiis aliquid soluta recusandae eveniet mollitia quae alias voluptates!
 				</p>
-				<div class="product-quickview__actions flex">
-					<div class="product-quickview__quantity mr-[25px] flex border-[2px] boder-[#ddd]">
-						<span class="text-center w-[45px] text-xl font-medium py-[10px] border-r-[1px] boder-[#ddd]">
-							{{ quickViewCard.quantity }}
-						</span>
+					<div v-if="cart.hasGood(good.title)" class="rounded-sm flex text-white bg-[#74366f] h-[55px] px-2 w-[145.95px] items-center  justify-between">
+						<button @click="curCount - 1 === 0 ? cart.deleteGood(good.title) : cart.changeCount(good, --curCount)">
+							<Icon name="ep:minus" />
+						</button>
 						<div class="flex flex-col">
-							<button @click="quickViewCard.quantity++" class="border-b-[1px] boder-[#ddd] w-[42px] general-transition hover:text-[#f16e36]">
-								<Icon name="ep:caret-top"/>
-							</button>
-							<button @click="quickViewCard.decrementQuantity" class="w-[42px] general-transition hover:text-[#f16e36]">
-								<Icon name="ep:caret-bottom"/>
-							</button>
+							<span class="px-[30px]">
+								{{ curCount }}
+							</span>
+							<span class="text-sm font-extralight">
+								в корзине
+							</span>
 						</div>
+						<button @click="cart.changeCount(good, ++curCount)">
+							<Icon name="ep:plus" />
+						</button>
 					</div>
-					<button class="text-white h-[55px] uppercase px-[30px] bg-[#f16e36] hover:bg-[black] font-semibold">
+					<button v-else  @click="cart.addGood(good)" class="text-white h-[55px] uppercase px-[30px] bg-[#f16e36] hover:bg-[black] font-semibold">
 						в корзину
 					</button>
-				</div>
+				<!-- </div> -->
 			</div>
 		</div>
 	</GeneralCentralModal>

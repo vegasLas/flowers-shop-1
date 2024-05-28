@@ -3,7 +3,7 @@ import { NuxtLink, Icon } from '#components';
 const goods = useGoods()
 const globalSearch = useGlobalSearch()
 const burger = useBurger()
-
+const cart = useCart()
 const isFixed = ref(false);
 const handleScroll = () => {
   isFixed.value = window.scrollY > 64;
@@ -43,7 +43,10 @@ onUnmounted(() => {
 						<Icon class="w-7 h-7" name="formkit:search" />
 					</button>
 					<button v-show="!burger.isActive" class="mr-4" @click="globalSearch.isActive = !globalSearch.isActive">
-						<Icon class="w-7 h-7" name="basil:clipboard-outline" />
+						<div class="indicator">
+							<span class="indicator-item badge p-[5px] rounded-full bg-[#f16e36] text-white">{{ cart.data.size }}</span> 
+							<Icon class="w-7 h-7" name="basil:clipboard-outline" />
+						</div>
 					</button>
 					<Theme />
 				</div>

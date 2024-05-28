@@ -3,8 +3,6 @@ import { Icon } from '#components';
 import type { VNodeRef } from 'vue';
 
 const activeSlide = ref<'first' | 'last'>('first')
-const slide1ImgRef = ref<VNodeRef | null>(null)
-const slide2ImgRef = ref<VNodeRef | null>(null)
 const slideBodyRef = ref<VNodeRef | null>(null)
 let bounceTimeoutId: NodeJS.Timeout
 function switchSlide (val: 'first' | 'last') {

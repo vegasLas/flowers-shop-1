@@ -12,6 +12,11 @@ export default <RouterConfig> {
       name: 'products',
       path: '/products',
       component: () => import('~/pages/products.vue').then(r => r.default || r)
+    },
+    {
+      name: 'admin',
+      path: '/admin',
+      component: () => import('~/pages/admin.vue').then(r => r.default || r)
     }
   ],
 }
