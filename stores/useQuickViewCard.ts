@@ -5,11 +5,6 @@ export const useQuickViewCard = defineStore('quick-view-card', () => {
 	const selectedPreview = ref('')
 	const quantity = ref(1)
 	const good = ref<null | Good>(null)
-	function decrementQuantity () {
-		if (quantity.value === 1) return
-		quantity.value -=  1 
-		
-	}
 	return {
 		selectedPreview,
 		quantity,
@@ -21,6 +16,5 @@ export const useQuickViewCard = defineStore('quick-view-card', () => {
 				good.value = data
 			}
 		}),
-		decrementQuantity
 	}
 })
