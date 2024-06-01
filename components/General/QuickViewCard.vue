@@ -6,7 +6,7 @@ const {
 	good,
 } = storeToRefs(useQuickViewCard())
 const cart = useCart()
-const curCount = ref((good.value?.title && cart.hasGood(good.value.title)) ? cart.getGood(good.value.title).count : 1)
+const curCount = ref((good.value?.title && cart.hasGood(good.value.title)) ? cart.getGood(good.value.title)?.count : 1)
 </script>
 
 <template>

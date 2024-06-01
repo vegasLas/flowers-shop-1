@@ -54,19 +54,19 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.slide-active {
-	--tw-scale-x: 1.1;
-	--tw-scale-y: 1.1;
-	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-	-webkit-animation: decrease 5s ease;
-	animation: decrease 5s ease;
-	animation-delay: 300ms;
-	-webkit-animation-fill-mode: forwards; /* Chrome 16+, Safari 4+ */
-	-moz-animation-fill-mode: forwards;    /* FF 5+ */
-	-o-animation-fill-mode: forwards;      /* Not implemented yet */
-	-ms-animation-fill-mode: forwards;     /* IE 10+ */
-	animation-fill-mode: forwards;         /* When the spec is finished */
-} 
+	.slide-active {
+		--tw-scale-x: 1.1;
+		--tw-scale-y: 1.1;
+		transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+		-webkit-animation: decrease 5s ease;
+		animation: decrease 5s ease;
+		animation-delay: 300ms;
+		-webkit-animation-fill-mode: forwards; /* Chrome 16+, Safari 4+ */
+		-moz-animation-fill-mode: forwards;    /* FF 5+ */
+		-o-animation-fill-mode: forwards;      /* Not implemented yet */
+		-ms-animation-fill-mode: forwards;     /* IE 10+ */
+		animation-fill-mode: forwards;         /* When the spec is finished */
+	}
 
 @keyframes decrease {
   from {

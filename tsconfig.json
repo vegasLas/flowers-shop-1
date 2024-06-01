@@ -1,21 +1,19 @@
 {
-  // "compilerOptions": {
-  //   "moduleResolution": "node",
-  //   "resolveJsonModule": true,
-  //   "esModuleInterop": true,
-  //   "target": "ES6",
-  //   "module": "commonjs",
-  //   "strict": true,
-  //   "baseUrl": ".",
-  //   "paths": {
-  //     "@/*": ["src/*"]
-  //   },
-  //   "outDir": "./dist",
-  //   "rootDir": "./src",
-  //   "sourceMap": true
-  // },
-  // "include": ["src/**/*.ts", "src/**/*.tsx"],
-  // "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "baseUrl": ".",
+    // "paths": {
+    //   "@/*": ["src/*"]
+    // },
+    "outDir": "./dist",
+    "rootDir": "./",
+    "sourceMap": true
+  },
   "extends": "./.nuxt/tsconfig.json"
 
 }

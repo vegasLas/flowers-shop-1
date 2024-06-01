@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  adminid      Int       @id @default(autoincrement())
+  username     String    @unique
+  email        String    @unique
+  passwordhash String
+  fullname     String
+  createdat    DateTime  @default(now())
+  orders       Order[]
+  adminactions AdminAction[]
+  blogs        Blog[]
+}
+
+model Category {
+  categoryid   Int       @id @default(autoincrement())
+  categoryname String    @unique
+  products     Product[]
+}
+
+model Product {
+  productid     Int              @id @default(autoincrement())
+  productname   String
+  description   String?
+  price         Float
+  stock         Int
+  createdat     DateTime         @default(now())
+  categoryid    Int
+  category      Category         @relation(fields: [categoryid], references: [categoryid])
+  productimages ProductImage[]
+  orderitems    OrderItem[]
+  bouquetproducts BouquetProduct[]
+  adminactions  AdminAction[]
+}
+
+model ProductImage {
+  imageid   Int     @id @default(autoincrement())
+  productid Int
+  imageurl  String
+  product   Product @relation(fields: [productid], references: [productid])
+}
+
+model Bouquet {
+  bouquetid     Int              @id @default(autoincrement())
+  bouquetname   String
+  description   String?
+  price         Float
+  stock         Int
+  createdat     DateTime         @default(now())
+  bouquetimages BouquetImage[]
+  bouquetproducts BouquetProduct[]
+  orderitems    OrderItem[]
+  adminactions  AdminAction[]
+}
+
+model BouquetProduct {
+  bouquetproductid Int      @id @default(autoincrement())
+  bouquetid        Int
+  productid        Int
+  quantity         Int
+  bouquet          Bouquet  @relation(fields: [bouquetid], references: [bouquetid])
+  product          Product  @relation(fields: [productid], references: [productid])
+}
+
+model BouquetImage {
+  imageid   Int     @id @default(autoincrement())
+  bouquetid Int
+  imageurl  String
+  bouquet   Bouquet @relation(fields: [bouquetid], references: [bouquetid])
+}
+
+model Order {
+  orderid     Int        @id @default(autoincrement())
+  adminid     Int
+  totalamount Float
+  status      String
+  createdat   DateTime   @default(now())
+  admin       Admin      @relation(fields: [adminid], references: [adminid])
+  orderitems  OrderItem[]
+}
+
+model OrderItem {
+  orderitemid Int      @id @default(autoincrement())
+  orderid     Int
+  productid   Int?
+  bouquetid   Int?
+  quantity    Int
+  price       Float
+  order       Order    @relation(fields: [orderid], references: [orderid])
+  product     Product? @relation(fields: [productid], references: [productid])
+  bouquet     Bouquet? @relation(fields: [bouquetid], references: [bouquetid])
+}
+
+model AdminAction {
+  actionid        Int      @id @default(autoincrement())
+  adminid         Int
+  actiontype      String
+  productid       Int?
+  bouquetid       Int?
+  actiontimestamp DateTime @default(now())
+  admin           Admin    @relation(fields: [adminid], references: [adminid])
+  product         Product? @relation(fields: [productid], references: [productid])
+  bouquet         Bouquet? @relation(fields: [bouquetid], references: [bouquetid])
+}
+
+model Blog {
+  blogid     Int      @id @default(autoincrement())
+  title      String
+  content    String
+  authorid   Int
+  createdat  DateTime @default(now())
+  updatedat  DateTime @default(now())
+  author     Admin    @relation(fields: [authorid], references: [adminid])
+}
