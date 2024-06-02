@@ -1,7 +1,7 @@
-import { AddProduct } from "../types/index.dto";
+import { CreateProductDto } from "../types/index.dto";
 
 export default eventHandler(async (event) => {
-	const body = await readBody<AddProduct>(event);
+	const body = await readBody<CreateProductDto>(event);
 	const productsImages = body.productimages
 	
 	const newProduct = await prisma.product.create({
@@ -25,7 +25,7 @@ export default eventHandler(async (event) => {
 			  imageurl: productsImage.imageurl,
 			  product: {
 				connect: {
-				  productid: productsImage.productid,
+				  productid: newProduct.productid,
 				},
 			  },
 			},

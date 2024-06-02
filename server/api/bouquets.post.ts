@@ -1,8 +1,8 @@
-import { AddBouquet } from "../types/index.dto";
+import { CreateBouquetDto } from "../types/index.dto";
 
 // Function to create a bouquet along with its products and images
 export default eventHandler(async (event) => {
-  const body = await readBody<AddBouquet>(event);
+  const body = await readBody<CreateBouquetDto>(event);
 
   // Extract bouquet products and images from the request body
   const bouquetProducts = body.bouquetproducts;

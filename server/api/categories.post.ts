@@ -1,7 +1,7 @@
-import { AddCategory } from '../types/index.dto';
+import { CreateCategoryDto } from '../types/index.dto';
 
 export default eventHandler(async (event) => {
-  const body = await readBody<AddCategory>(event);
+  const body = await readBody<CreateCategoryDto>(event);
   const newAdmin = await prisma.category.create({
     data: {
       categoryname: body.categoryname

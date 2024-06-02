@@ -1,7 +1,7 @@
-import { AddAdminAction } from "../types/index.dto";
+import { CreateAdminActionDto } from "../types/index.dto";
 
 export default eventHandler(async (event) => {
-	const body = await readBody<AddAdminAction>(event);
+	const body = await readBody<CreateAdminActionDto>(event);
 	const newAdminAction = await prisma.adminAction.create({
 	  data: {
 		actiontype: body.actiontype,

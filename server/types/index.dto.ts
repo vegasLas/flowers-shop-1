@@ -1,22 +1,30 @@
-export interface AddAdmin {
+export interface AdminResource {
 	adminid: number;
 	username: string;
 	email: string;
-	password: string;
+	passwordhash: string;
 	fullname: string;
 	createdat: Date;
-	orders: AddOrder[];
-	adminactions: AddAdminAction[];
-	blogs: AddBlog[];
+	orders: OrderResource[];
+	adminactions: AdminActionResource[];
+	blogs: BlogResource[];
   }
-  
-export interface AddCategory {
+export interface CreateAdminDto {
+	username: string,
+	password: string,
+	email: string,
+	fullname: string
+}
+export interface CategoryResource {
 	categoryid: number;
 	categoryname: string;
-	products: AddProduct[];
+	products: ProductResource[];
   }
+export interface CreateCategoryDto {
+	categoryname: string;
+}
   
-export interface AddProduct {
+export interface ProductResource {
 	productid: number;
 	productname: string;
 	description?: string;
@@ -24,90 +32,125 @@ export interface AddProduct {
 	stock: number;
 	createdat: Date;
 	categoryid: number;
-	category: AddCategory;
-	productimages: AddProductImage[];
-	orderitems: AddOrderItem[];
-	bouquetproducts: AddBouquetProduct[];
-	adminactions: AddAdminAction[];
+	category: CategoryResource;
+	productimages: ProductImage[];
+	orderitems: OrderItemResource[];
+	bouquetproducts: BouquetProductResource[];
+	adminactions: AdminActionResource[];
+  }
+export interface CreateProductDto {
+	productname: string;
+	description?: string;
+	price: number;
+	stock: number;
+	categoryid: number;
+	productimages: {imageurl: string}[];
   }
   
-export interface AddProductImage {
+export interface ProductImage {
 	imageid: number;
 	productid: number;
 	imageurl: string;
-	product: AddProduct;
+	product: ProductResource;
   }
   
-export interface AddBouquet {
+export interface BouquetResource {
 	bouquetid: number;
 	bouquetname: string;
 	description?: string;
 	price: number;
 	stock: number;
 	createdat: Date;
-	bouquetimages: AddBouquetImage[];
-	bouquetproducts: AddBouquetProduct[];
-	orderitems: AddOrderItem[];
-	adminactions: AddAdminAction[];
+	bouquetimages: BouquetImageResource[];
+	bouquetproducts: BouquetProductResource[];
+	orderitems: OrderItemResource[];
+	adminactions: AdminActionResource[];
+  }
+  export interface CreateBouquetDto {
+	bouquetproducts: { quantity: number, productid: number}[]
+	bouquetimages: {imageurl: string}[]
+	bouquetname: string
+	description: string
+	price: number
+	stock: number
   }
   
-export interface AddBouquetProduct {
+export interface BouquetProductResource {
 	bouquetproductid: number;
 	bouquetid: number;
 	productid: number;
 	quantity: number;
-	bouquet: AddBouquet;
-	product: AddProduct;
+	bouquet: BouquetResource;
+	product: ProductResource;
   }
   
-export interface AddBouquetImage {
+export interface BouquetImageResource {
 	imageid: number;
 	bouquetid: number;
 	imageurl: string;
-	bouquet: AddBouquet;
+	bouquet: BouquetImageResource;
   }
   
-export interface AddOrder {
+export interface OrderResource {
 	orderid: number;
 	adminid: number;
 	totalamount: number;
 	status: string;
 	createdat: Date;
-	admin: AddAdmin;
-	orderitems: AddOrderItem[];
+	admin: AdminResource;
+	orderitems: OrderItemResource[];
   }
   
-export interface AddOrderItem {
+export interface CreateOrderDto {
+	adminid: number;
+	totalamount: number;
+	status: string;
+	createdat: Date;
+	orderitems: {productid?: number, bouquetid?: number, quantity: number, price: number}[];
+  }
+export interface OrderItemResource {
 	orderitemid: number;
 	orderid: number;
 	productid?: number;
 	bouquetid?: number;
 	quantity: number;
 	price: number;
-	order: AddOrder;
-	product?: AddProduct;
-	bouquet?: AddBouquet;
+	order: OrderResource;
+	product?: ProductResource;
+	bouquet?: BouquetImageResource;
   }
   
-export interface AddAdminAction {
+export interface AdminActionResource {
 	actionid: number;
 	adminid: number;
 	actiontype: string;
 	productid?: number;
 	bouquetid?: number;
 	actiontimestamp: Date;
-	admin: AddAdmin;
-	product?: AddProduct;
-	bouquet?: AddBouquet;
+	admin: AdminResource;
+	product?: ProductResource;
+	bouquet?: BouquetImageResource;
   }
-  
-export interface AddBlog {
+export interface CreateAdminActionDto {
+	adminid: number;
+	actiontype: string;
+	productid?: number;
+	bouquetid?: number;
+  }
+export interface BlogResource {
 	blogid: number;
 	title: string;
 	content: string;
 	authorid: number;
 	createdat: Date;
 	updatedat: Date;
-	author: AddAdmin;
+	author: AdminResource;
+  }
+
+export interface CreateBlogDto {
+	title: string;
+	content: string;
+	authorid: number;
+	updatedat: Date;
   }
   

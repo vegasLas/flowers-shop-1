@@ -1,7 +1,7 @@
-import { AddOrder } from "../types/index.dto";
+import { CreateOrderDto } from "../types/index.dto";
 
 export default eventHandler(async (event) => {
-	const body = await readBody<AddOrder>(event);
+	const body = await readBody<CreateOrderDto>(event);
   
 	// Extract order items from the request body
 	const orderItems = body.orderitems;
