@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const globalSearch = useGlobalSearch()
+// const globalSearch = useGlobalSearch()
 
 </script>
 <template>

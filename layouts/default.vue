@@ -1,5 +1,5 @@
 <template>
-	<AppSearchModal />
+	<!-- <AppSearchModal /> -->
 	<AppHeader />
 	<slot />
 	<AppFooter />

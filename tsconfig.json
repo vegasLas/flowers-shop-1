@@ -7,9 +7,10 @@
     "module": "commonjs",
     "strict": true,
     "baseUrl": ".",
-    // "paths": {
-    //   "@/*": ["src/*"]
-    // },
+    "paths": {
+      "~/*": ["./*"],
+      "#build/*": ["./.nuxt/types/*"]
+    },
     "outDir": "./dist",
     "rootDir": "./",
     "sourceMap": true

@@ -1,67 +1,104 @@
 <script setup lang="ts">
- interface Props {
-	isBurgerActive: boolean,
-	goods: {section: string, link: string, items: {title: string, link: string}[]}[]
- }
- const searchQuery = defineModel({type: String})
- defineProps<Props>()
+import { ref } from 'vue';
 
+interface Product {
+  productid: string;
+  productname: string;
+  price: number;
+}
+
+interface Bouquet {
+  bouquetid: string;
+  bouquetname: string;
+  price: number;
+}
+
+interface Props {
+  isBurgerActive: boolean;
+  products: Product[];
+  productsLoading: boolean;
+  bouquets: Bouquet[];
+  bouquetsLoading: boolean;
+}
+
+const searchQuery = ref('');
+defineProps<Props>();
 </script>
 
 <template>
-	 <div :class="[`transition-all
-					duration-300
-					ease-linear
-					bg-[var(--fallback-b1,oklch(var(--b1)/1))]
-					shadow
-					absolute
-					h-0
-					overflow-auto
-					flex
-					flex-col
-					w-full
-					top-16e
-					invisible
-					opacity-0`,
-					isBurgerActive && '!top-[64px] h-[94vh] !visible !z-50 opacity-100']">
-			<label class="relative text-gray-400 focus-within:text-gray-600 block">
-				<Icon class="pointer-events-none w-5 h-5 sm:w-8 sm:h-8 absolute top-1/2 transform -translate-y-1/2 left-3" name="formkit:search" />
-				<input
-					type="text"
-					name="header-search"
-					id="header-search"
-					@input="(event) => searchQuery = event.target.value.trim()"
-					placeholder="поиск"
-					class="form-input border-none border-gray-900 py-3 px-4 appearance-none w-full block pl-14 text-[var(--fallback-bc,oklch(var(--bc)/1))] focus:outline-none" />
-			</label>
-			<div tabindex="0" class="">
-				<div v-for="{section, items} in goods"  style="">
-					<div tabindex="0" class="collapse collapse-arrow !border-b-transparent border border-base-300 !rounded-none" :class="[searchQuery ? 'collapse-open' : '']">
-						<input type="checkbox" /> 
-						<div class="collapse-title font-medium ">
-							{{section}}
-						</div>
-						<div class="collapse-content duration-300 overflow-auto px-0"> 
-							<div v-for="{link, title} in items" class="btn btn-sm !border-none btn-outline bg-transparent  !rounded-none w-full">
-								<NuxtLink :to="link">{{title}}</NuxtLink>
-							</div>	
-						</div>
-					</div>
-					<!-- <button 
-						@click="() => activeSection = (activeSection === section ? '' : section)" 
-						class="btn !rounded-none w-full">
-						{{section}} 
-						<Icon :name="(activeSection === section ? 'formkit:left' : 'formkit:down')" />
-					</button>
-					<div :class="[
-							'flex flex-col items-center invisible h-0 overflow-auto', 
-							activeSection === section && '!visible h-[300px]'
-						]">
-							<div v-for="{link, title} in items" class="btn btn-sm bg-transparent !rounded-none w-full">
-								<NuxtLink :to="link">{{title}}</NuxtLink>
-							</div>	
-					</div> -->
-				</div>	
-			</div>
-	</div>
+  <div :class="['search-container', isBurgerActive && 'search-container-active']">
+    <div tabindex="0" class="search-content">
+      <div v-if="products.length || bouquets.length">
+        <div tabindex="0" class="collapse" :class="[searchQuery ? 'collapse-open' : '']">
+          <input type="checkbox" />
+          <div class="collapse-title">
+            Продукты и Букеты
+          </div>
+          <div class="collapse-content">
+            <div v-if="productsLoading || bouquetsLoading">Загрузка...</div>
+            <div v-for="product in products" :key="product.productid" class="item-link">
+              <NuxtLink :to="`/products/${product.productid}`">{{ product.productname }} - {{ product.price }}</NuxtLink>
+            </div>
+            <div v-for="bouquet in bouquets" :key="bouquet.bouquetid" class="item-link">
+              <NuxtLink :to="`/bouquets/${bouquet.bouquetid}`">{{ bouquet.bouquetname }} - {{ bouquet.price }}</NuxtLink>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.search-container {
+  transition: all 0.3s ease-linear;
+  background-color: var(--fallback-b1, oklch(var(--b1) / 1));
+  box-shadow: var(--shadow);
+  position: absolute;
+  height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  top: 16px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.search-container-active {
+  top: 64px;
+  height: 94vh;
+  visibility: visible;
+  z-index: 50;
+  opacity: 1;
+}
+
+.search-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.collapse {
+  border: 1px solid var(--base-300);
+  border-bottom: transparent;
+  border-radius: 0;
+}
+
+.collapse-open .collapse-content {
+  transition: all 0.3s ease;
+  overflow: auto;
+  padding: 0;
+}
+
+.collapse-title {
+  font-weight: medium;
+}
+
+.item-link {
+  padding: 0.25rem 0;
+  border: none;
+  background-color: transparent;
+  border-radius: 0;
+  width: 100%;
+}
+</style>

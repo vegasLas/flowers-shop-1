@@ -1,10 +1,8 @@
-import { FetchProductsParams } from '#build/types';
+import { BouquetResource, FetchBouquetsParams } from '#build/types';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
-import { productService } from '~/services/productService';
-import { ProductResource } from '../types/index';
-// import { productService } from '../services/productService';
-export const useProducts = defineStore('products', () => {
+import { ref, computed } from 'vue';
+import { bouquetService } from '~/services/bouquetService';
+export const useBouquets = defineStore('bouquets', () => {
   const activeColumn = ref<2 | 3 | 4 | 5>(4);
   const columns = ref([2, 3, 4, 5]);
   const proportions = {
@@ -16,30 +14,31 @@ export const useProducts = defineStore('products', () => {
   const sorts = ref(['Выбрать', 'Лучшие продажи', 'А-Я', 'Цена, макс. - мин.', 'Цена, мин. - макс.']);
   const selectedSort = ref('Выбрать');
   const selectedPage = ref(1);
-  const products = ref<Omit<ProductResource, 'orderitems' | 'bouquetproducts' | 'adminactions'>[]>([]);
+  const bouquets = ref<Omit<BouquetResource, 'orderitems' | 'adminactions'>[]>([]);
   const totalPages = ref(0);
   const isLoading = ref(false);
 
-  const fetchProducts = async (params: FetchProductsParams) => {
+  const fetchBouquets = async (params: FetchBouquetsParams) => {
     isLoading.value = true;
     try {
       const sortFieldMapping: Record<string, { [key: string]: 'asc' | 'desc' }> = {
         'Лучшие продажи': { orderItemCount: 'desc' },
-        'А-Я': { productname: 'asc' },
+        'А-Я': { bouquetname: 'asc' },
         'Цена, макс. - мин.': { price: 'desc' },
         'Цена, мин. - макс.': { price: 'asc' },
       };
 
       const selectedSortField = sortFieldMapping[selectedSort.value] || {};
-      const response = await productService.getProducts({
+
+      const response = await bouquetService.getBouquets({
         page: selectedPage.value,
         sortFields: selectedSortField,
-		...params
+		    ...params
       });
-      products.value = response.data;
+      bouquets.value = response.data;
       totalPages.value = response._embedded.totalPages;
     } catch (error) {
-      console.error('Failed to fetch products:', error);
+      console.error('Failed to fetch bouquets:', error);
     } finally {
       isLoading.value = false;
     }
@@ -52,17 +51,9 @@ export const useProducts = defineStore('products', () => {
     sorts,
     selectedSort,
     selectedPage,
-    products,
+    bouquets,
     totalPages,
     isLoading,
-    fetchProducts,
-    // goods: computed(() => products.value.reduce<typeof products.value[number][][]>((prev, product, index) => {
-    //   if (index % 12 === 0) {
-    //     prev.push([product]);
-    //   } else {
-    //     prev.at(-1)?.push(product);
-    //   }
-    //   return prev;
-    // }, [])),
+    fetchBouquets,
   };
 });
